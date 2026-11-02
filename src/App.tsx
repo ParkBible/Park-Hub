@@ -156,9 +156,16 @@ function ServiceCard({ service, status }: { service: ServiceConfig; status: Back
       )}
 
       <div className={styles.cardActions}>
-        <a className={styles.primaryButton} href={service.url} target="_blank" rel="noreferrer">
-          열기
-        </a>
+        {service.url && (
+          <a className={styles.primaryButton} href={service.url} target="_blank" rel="noreferrer">
+            열기
+          </a>
+        )}
+        {service.downloadUrl && (
+          <a className={styles.primaryButton} href={service.downloadUrl} target="_blank" rel="noreferrer">
+            다운로드
+          </a>
+        )}
         <a className={styles.ghostButton} href={service.repoUrl} target="_blank" rel="noreferrer">
           GitHub
         </a>

@@ -1,13 +1,21 @@
+export interface BackupConfig {
+  mainFile: string;
+  snapshotPrefix?: string;
+  staleAfterHours: number;
+}
+
 export interface ServiceConfig {
   id: string;
   name: string;
   description: string;
   emoji: string;
-  url: string;
+  /** 웹 서비스 주소. 데스크톱 앱은 없다 */
+  url?: string;
+  /** 설치 파일 받는 곳 */
+  downloadUrl?: string;
   repoUrl: string;
-  mainFile: string;
-  snapshotPrefix?: string;
-  staleAfterHours: number;
+  /** appDataFolder 에 백업하는 서비스만 */
+  backup?: BackupConfig;
 }
 
 export const SERVICES: ServiceConfig[] = [
@@ -18,9 +26,11 @@ export const SERVICES: ServiceConfig[] = [
     emoji: '📖',
     url: 'https://novel-bunker.vercel.app',
     repoUrl: 'https://github.com/ParkBible/Novel-Bunker',
-    mainFile: 'novelbunker-data.json',
-    snapshotPrefix: 'novelbunker-snapshot-',
-    staleAfterHours: 72,
+    backup: {
+      mainFile: 'novelbunker-data.json',
+      snapshotPrefix: 'novelbunker-snapshot-',
+      staleAfterHours: 72,
+    },
   },
   {
     id: 'recipe-note',
@@ -29,8 +39,18 @@ export const SERVICES: ServiceConfig[] = [
     emoji: '🍳',
     url: 'https://recipe-note-phi.vercel.app',
     repoUrl: 'https://github.com/ParkBible/Recipe-Note',
-    mainFile: 'recipe-note-data.json',
-    // 변경이 있을 때만 업로드하므로 한동안 안 쓰면 시각이 멈춘다
-    staleAfterHours: 24 * 14,
+    backup: {
+      mainFile: 'recipe-note-data.json',
+      // 변경이 있을 때만 업로드하므로 한동안 안 쓰면 시각이 멈춘다
+      staleAfterHours: 24 * 14,
+    },
+  },
+  {
+    id: 'pie-planner',
+    name: '생활계획표',
+    description: '24시간 파이형 생활계획표 (Windows 앱)',
+    emoji: '🕒',
+    downloadUrl: 'https://github.com/ParkBible/Pie-Planner/releases/latest',
+    repoUrl: 'https://github.com/ParkBible/Pie-Planner',
   },
 ];

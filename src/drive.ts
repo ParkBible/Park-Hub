@@ -1,4 +1,4 @@
-import type { ServiceConfig } from './services';
+import type { BackupConfig, ServiceConfig } from './services';
 
 const DRIVE_API = 'https://www.googleapis.com/drive/v3';
 
@@ -64,15 +64,16 @@ async function listAppDataFiles(): Promise<DriveFile[]> {
 const latest = (files: DriveFile[]) =>
   files.reduce<DriveFile | null>((acc, file) => (!acc || file.modifiedTime > acc.modifiedTime ? file : acc), null);
 
-export function summarize(service: ServiceConfig, files: DriveFile[], now = Date.now()): BackupStatus {
-  const main = latest(files.filter((file) => file.name === service.mainFile));
-  const snapshots = service.snapshotPrefix ? files.filter((file) => file.name.startsWith(service.snapshotPrefix!)) : null;
+export function summarize(backup: BackupConfig, files: DriveFile[], now = Date.now()): BackupStatus {
+  const { snapshotPrefix } = backup;
+  const main = latest(files.filter((file) => file.name === backup.mainFile));
+  const snapshots = snapshotPrefix ? files.filter((file) => file.name.startsWith(snapshotPrefix)) : null;
   const latestSnapshot = snapshots ? latest(snapshots) : null;
 
   const modifiedAt = main ? new Date(main.modifiedTime) : null;
   const health: BackupHealth = !modifiedAt
     ? 'missing'
-    : now - modifiedAt.getTime() > service.staleAfterHours * 3_600_000
+    : now - modifiedAt.getTime() > backup.staleAfterHours * 3_600_000
       ? 'stale'
       : 'fresh';
 
@@ -87,5 +88,7 @@ export function summarize(service: ServiceConfig, files: DriveFile[], now = Date
 
 export async function fetchBackupStatuses(services: ServiceConfig[]): Promise<Record<string, BackupStatus>> {
   const files = await listAppDataFiles();
-  return Object.fromEntries(services.map((service) => [service.id, summarize(service, files)]));
+  return Object.fromEntries(
+    services.flatMap((service) => (service.backup ? [[service.id, summarize(service.backup, files)]] : [])),
+  );
 }

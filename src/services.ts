@@ -50,6 +50,7 @@ export const SERVICES: ServiceConfig[] = [
     name: '메모장',
     description: '마크다운 서식 메모',
     emoji: '📝',
+    url: 'https://memo-note-five.vercel.app',
     repoUrl: 'https://github.com/ParkBible/Memo-Note',
     backup: {
       mainFile: 'memo-note-data.json',

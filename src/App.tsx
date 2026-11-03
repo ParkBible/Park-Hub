@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { AuthRequiredError, fetchBackupStatuses, type BackupHealth, type BackupStatus } from './drive';
 import { formatBytes, formatDateTime, timeAgo } from './format';
 import { SERVICES, type ServiceConfig } from './services';
@@ -61,7 +61,9 @@ export function App() {
       <header className={styles.header}>
         <div>
           <h1 className={styles.title}>Park-Hub</h1>
-          <p className={styles.subtitle}>내 서비스 모음 · 구글 드라이브 백업 상태</p>
+          <p className={styles.subtitle}>
+            내 서비스 모음 · 구글 드라이브 백업 상태<span className={styles.cursor} aria-hidden>_</span>
+          </p>
         </div>
         <div className={styles.account}>
           {session.state === 'signedIn' && (
@@ -85,6 +87,9 @@ export function App() {
       <main>
         <div className={styles.toolbar}>
           <p className={styles.toolbarText}>
+            <span className={styles.prompt} aria-hidden>
+              C:\PARK&gt;
+            </span>
             {session.state === 'signedIn'
               ? load.state === 'loaded'
                 ? `${timeAgo(load.checkedAt)} 확인`
@@ -105,8 +110,13 @@ export function App() {
         </div>
 
         <ul className={styles.grid}>
-          {SERVICES.map((service) => (
-            <ServiceCard key={service.id} service={service} status={signedIn ? (statuses?.[service.id] ?? null) : null} />
+          {SERVICES.map((service, index) => (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              accent={RETRO_ACCENTS[index % RETRO_ACCENTS.length]}
+              status={signedIn ? (statuses?.[service.id] ?? null) : null}
+            />
           ))}
         </ul>
       </main>
@@ -118,9 +128,19 @@ export function App() {
   );
 }
 
-function ServiceCard({ service, status }: { service: ServiceConfig; status: BackupStatus | null }) {
+const RETRO_ACCENTS = ['var(--color-retro-1)', 'var(--color-retro-2)', 'var(--color-retro-3)', 'var(--color-retro-4)'];
+
+function ServiceCard({ service, status, accent }: { service: ServiceConfig; status: BackupStatus | null; accent: string }) {
   return (
-    <li className={styles.card}>
+    <li className={styles.card} style={{ '--accent': accent } as CSSProperties}>
+      <div className={styles.titleBar} aria-hidden>
+        <span className={styles.titleBarName}>{service.id}.exe</span>
+        <span className={styles.windowButtons}>
+          <span />
+          <span />
+          <span />
+        </span>
+      </div>
       <div className={styles.cardHead}>
         <span className={styles.emoji} aria-hidden>
           {service.emoji}
@@ -129,7 +149,12 @@ function ServiceCard({ service, status }: { service: ServiceConfig; status: Back
           <h2 className={styles.cardTitle}>{service.name}</h2>
           <p className={styles.cardDescription}>{service.description}</p>
         </div>
-        {status && <span className={`${styles.badge} ${styles[status.health]}`}>{HEALTH_LABEL[status.health]}</span>}
+        {status && (
+          <span className={`${styles.badge} ${styles[status.health]}`}>
+            <span className={styles.led} aria-hidden />
+            {HEALTH_LABEL[status.health]}
+          </span>
+        )}
       </div>
 
       {status && (

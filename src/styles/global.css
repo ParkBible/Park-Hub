@@ -15,7 +15,10 @@ html {
 body {
   margin: 0;
   min-height: 100dvh;
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  /* 모눈 점 바탕 */
+  background-image: radial-gradient(var(--color-bg-dot) 1.2px, transparent 1.3px);
+  background-size: 18px 18px;
   color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--font-size-md);
@@ -73,7 +76,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px dashed var(--color-focus-ring);
   outline-offset: 2px;
 }
 

@@ -1,45 +1,50 @@
+/*
+ * 디자인 토큰 — "Retro Desktop".
+ * 90년대 컴퓨터 화면 느낌: 크림색 바탕, 굵은 잉크 테두리, 번짐 없는 딱딱한 그림자, 픽셀 글꼴 제목.
+ * 강조는 70~80년대 톤의 토마토·머스타드·청록·자두 네 가지를 카드 제목줄에 돌려 쓴다.
+ * 다크는 밤의 CRT: 짙은 남보라 바탕 + 크림 글자·테두리.
+ * 본문·버튼 글자 대비는 라이트·다크 모두 WCAG AA(4.5:1) 이상.
+ */
 :root {
   color-scheme: light;
 
-  /* ── Color: neutral ────────────────────── */
-  --color-bg: #f6f7f6;
-  --color-surface: #ffffff;
-  --color-surface-muted: #f0f2f1;
-  --color-surface-sunken: #e8ebe9;
-  --color-border: #e2e6e4;
-  --color-border-strong: #cdd3d0;
+  --color-bg: #f3e9d2;
+  --color-bg-dot: #e2d3b2;
+  --color-surface: #fffaf0;
+  --color-surface-muted: #f6ecd7;
+  --color-ink: #1f1a17;
 
-  --color-text: #141816;
-  --color-text-muted: #59625e;
-  --color-text-subtle: #6b7470;
+  --color-text: #1f1a17;
+  --color-text-muted: #4f453c;
+  --color-text-subtle: #64584c;
 
-  /* ── Color: accent ─────────────────────── */
-  --color-primary: #12804f;
-  --color-primary-hover: #0d6b41;
-  --color-primary-soft: #e4f4ec;
-  --color-primary-soft-text: #0d6640;
-  --color-on-primary: #ffffff;
+  --color-primary: #1f1a17;
+  --color-primary-hover: #3a322b;
+  --color-on-primary: #fffaf0;
 
-  /* ── Color: semantic ───────────────────── */
-  --color-success: #12804f;
-  --color-success-soft: #e4f4ec;
-  --color-success-soft-text: #0d6640;
-  --color-warning: #c27a0e;
-  --color-warning-soft: #fdf3e1;
-  --color-warning-soft-text: #8c5507;
-  --color-danger: #d4382c;
-  --color-danger-soft: #fdeceb;
-  --color-danger-soft-text: #a6271d;
+  /* 카드 제목줄 색. 위에 올리는 글자색(--color-on-retro)과 대비를 맞춰 두었다 */
+  --color-retro-1: #e4572e;
+  --color-retro-2: #f0b429;
+  --color-retro-3: #2a9d8f;
+  --color-retro-4: #b08cab;
+  --color-on-retro: #1f1a17;
 
-  --color-focus-ring: #12804f;
-  --color-overlay: rgba(14, 18, 16, 0.5);
-  --color-skeleton: #eaedeb;
-  --color-skeleton-shine: #f5f7f6;
+  --color-fresh: #2a9d8f;
+  --color-stale: #f0b429;
+  --color-missing: #e4572e;
 
+  --color-danger-soft: #f7d4c6;
+  --color-danger-soft-text: #8a2a10;
 
-  /* ── Typography ────────────────────────── */
-  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
-    'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', system-ui, sans-serif;
+  --color-focus-ring: #2a9d8f;
+
+  --border-width: 2px;
+  --shadow-hard: 4px 4px 0 var(--color-ink);
+  --shadow-hard-sm: 2px 2px 0 var(--color-ink);
+
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic',
+    'Noto Sans KR', system-ui, sans-serif;
+  --font-pixel: Galmuri11, 'Pretendard Variable', monospace;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --font-size-xs: 0.75rem;
@@ -48,7 +53,7 @@
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.375rem;
   --font-size-2xl: 1.75rem;
-  --font-size-3xl: 2.25rem;
+  --font-size-3xl: 2.5rem;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -59,7 +64,6 @@
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.7;
 
-  /* ── Spacing (4px scale) ───────────────── */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -71,29 +75,17 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* ── Radius ────────────────────────────── */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-full: 999px;
+  /* 옛 화면처럼 각지게 */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-full: 0;
 
-  /* ── Shadow ──────────────────────────── */
-  /* 플랫(단색) 스타일: 그림자를 쓰지 않는다. 면은 단색 + color-border 로만 나눈다 */
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
+  --duration-fast: 80ms;
+  --duration-normal: 160ms;
 
-  /* ── Motion ────────────────────────────── */
-  --duration-fast: 120ms;
-  --duration-normal: 200ms;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  /* ── Layout ────────────────────────────── */
   --layout-max-width: 1120px;
   --layout-gutter: var(--space-4);
-  --header-height: 60px;
-  /* 브레이크포인트: sm 640px / md 768px / lg 1024px — 미디어쿼리는 변수를 못 쓰므로 숫자를 직접 쓴다 */
 }
 
 @media (min-width: 768px) {
@@ -105,70 +97,42 @@
 /* 다크 토큰: 강제 다크 + OS 다크(사용자가 라이트를 강제하지 않은 경우) 두 곳에 같은 값을 둔다 */
 :root[data-theme='dark'] {
   color-scheme: dark;
-  --color-bg: #0e1110;
-  --color-surface: #161a18;
-  --color-surface-muted: #1d2220;
-  --color-surface-sunken: #121614;
-  --color-border: #262c29;
-  --color-border-strong: #363e3a;
-  --color-text: #ecf0ee;
-  --color-text-muted: #a2aca7;
-  --color-text-subtle: #7f8984;
-  --color-primary: #3ccb85;
-  --color-primary-hover: #5ad899;
-  --color-primary-soft: #132a1f;
-  --color-primary-soft-text: #7fe2b0;
-  --color-on-primary: #05140c;
-  --color-success: #3ccb85;
-  --color-success-soft: #132a1f;
-  --color-success-soft-text: #7fe2b0;
-  --color-warning: #e9a73e;
-  --color-warning-soft: #2e2312;
-  --color-warning-soft-text: #f2c47a;
-  --color-danger: #f26b60;
-  --color-danger-soft: #331a18;
-  --color-danger-soft-text: #f7a29b;
-  --color-focus-ring: #3ccb85;
-  --color-overlay: rgba(0, 0, 0, 0.65);
-  --color-skeleton: #1f2422;
-  --color-skeleton-shine: #2a302d;
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
+  --color-bg: #1b1a24;
+  --color-bg-dot: #2c2a3a;
+  --color-surface: #24222f;
+  --color-surface-muted: #2e2c3b;
+  --color-ink: #f3e9d2;
+  --color-text: #f3e9d2;
+  --color-text-muted: #cfc4ad;
+  --color-text-subtle: #a99f8b;
+  --color-primary: #f3e9d2;
+  --color-primary-hover: #ffffff;
+  --color-on-primary: #1b1a24;
+  --color-on-retro: #1b1a24;
+  --color-danger-soft: #4a2219;
+  --color-danger-soft-text: #f7b39c;
+  --shadow-hard: 4px 4px 0 #000;
+  --shadow-hard-sm: 2px 2px 0 #000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
-    --color-bg: #0e1110;
-    --color-surface: #161a18;
-    --color-surface-muted: #1d2220;
-    --color-surface-sunken: #121614;
-    --color-border: #262c29;
-    --color-border-strong: #363e3a;
-    --color-text: #ecf0ee;
-    --color-text-muted: #a2aca7;
-    --color-text-subtle: #7f8984;
-    --color-primary: #3ccb85;
-    --color-primary-hover: #5ad899;
-    --color-primary-soft: #132a1f;
-    --color-primary-soft-text: #7fe2b0;
-    --color-on-primary: #05140c;
-    --color-success: #3ccb85;
-    --color-success-soft: #132a1f;
-    --color-success-soft-text: #7fe2b0;
-    --color-warning: #e9a73e;
-    --color-warning-soft: #2e2312;
-    --color-warning-soft-text: #f2c47a;
-    --color-danger: #f26b60;
-    --color-danger-soft: #331a18;
-    --color-danger-soft-text: #f7a29b;
-    --color-focus-ring: #3ccb85;
-    --color-overlay: rgba(0, 0, 0, 0.65);
-    --color-skeleton: #1f2422;
-    --color-skeleton-shine: #2a302d;
-    --shadow-sm: none;
-    --shadow-md: none;
-    --shadow-lg: none;
+    --color-bg: #1b1a24;
+    --color-bg-dot: #2c2a3a;
+    --color-surface: #24222f;
+    --color-surface-muted: #2e2c3b;
+    --color-ink: #f3e9d2;
+    --color-text: #f3e9d2;
+    --color-text-muted: #cfc4ad;
+    --color-text-subtle: #a99f8b;
+    --color-primary: #f3e9d2;
+    --color-primary-hover: #ffffff;
+    --color-on-primary: #1b1a24;
+    --color-on-retro: #1b1a24;
+    --color-danger-soft: #4a2219;
+    --color-danger-soft-text: #f7b39c;
+    --shadow-hard: 4px 4px 0 #000;
+    --shadow-hard-sm: 2px 2px 0 #000;
   }
 }

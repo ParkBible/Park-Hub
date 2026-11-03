@@ -22,7 +22,7 @@ export const SERVICES: ServiceConfig[] = [
   {
     id: 'novel-bunker',
     name: '노벨벙커',
-    description: 'LLM 소설 작문 에디터',
+    description: '소설 작문 에디터',
     emoji: '📖',
     url: 'https://novel-bunker.vercel.app',
     repoUrl: 'https://github.com/ParkBible/Novel-Bunker',

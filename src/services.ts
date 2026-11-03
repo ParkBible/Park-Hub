@@ -46,6 +46,18 @@ export const SERVICES: ServiceConfig[] = [
     },
   },
   {
+    id: 'memo-note',
+    name: '메모장',
+    description: '마크다운 서식 메모',
+    emoji: '📝',
+    repoUrl: 'https://github.com/ParkBible/Memo-Note',
+    backup: {
+      mainFile: 'memo-note-data.json',
+      // 변경이 있을 때만 업로드하므로 한동안 안 쓰면 시각이 멈춘다
+      staleAfterHours: 24 * 14,
+    },
+  },
+  {
     id: 'pie-planner',
     name: '생활계획표',
     description: '24시간 파이형 생활계획표 (Windows 앱)',

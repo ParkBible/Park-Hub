@@ -24,7 +24,7 @@ export const SERVICES: ServiceConfig[] = [
     name: '노벨벙커',
     description: '소설 작문 에디터',
     emoji: '📖',
-    url: 'https://novel-bunker.vercel.app',
+    url: 'https://novel.park-bible.com',
     repoUrl: 'https://github.com/ParkBible/Novel-Bunker',
     backup: {
       mainFile: 'novelbunker-data.json',
@@ -37,7 +37,7 @@ export const SERVICES: ServiceConfig[] = [
     name: '레시피노트',
     description: '레시피 저장·추천',
     emoji: '🍳',
-    url: 'https://recipe-note-phi.vercel.app',
+    url: 'https://recipe.park-bible.com',
     repoUrl: 'https://github.com/ParkBible/Recipe-Note',
     backup: {
       mainFile: 'recipe-note-data.json',
@@ -50,7 +50,7 @@ export const SERVICES: ServiceConfig[] = [
     name: '메모장',
     description: '마크다운 서식 메모',
     emoji: '📝',
-    url: 'https://memo-note-five.vercel.app',
+    url: 'https://memo.park-bible.com',
     repoUrl: 'https://github.com/ParkBible/Memo-Note',
     backup: {
       mainFile: 'memo-note-data.json',
